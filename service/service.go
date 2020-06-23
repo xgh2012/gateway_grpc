@@ -1,8 +1,10 @@
 package main
 
 import (
+	"gateway_grpc/config"
 	"log"
 	"net"
+	"strconv"
 
 	pb "gateway_grpc/gateway"
 	"golang.org/x/net/context"
@@ -22,7 +24,7 @@ func (s *server) Echo(ctx context.Context, in *pb.StringMessage) (*pb.StringMess
 }
 
 func main() {
-	lis, err := net.Listen("tcp", PORT)
+	lis, err := net.Listen("tcp", ":"+strconv.Itoa(int(config.ServicePort)))
 
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -30,6 +32,6 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterGatewayServer(s, &server{})
-	log.Println("rpc服务已经开启")
+	log.Println("rpc服务已经开启,监听端口：", config.ServicePort)
 	s.Serve(lis)
 }

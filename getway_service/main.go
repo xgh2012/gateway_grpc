@@ -2,8 +2,10 @@ package main
 
 import (
 	"flag"
+	"gateway_grpc/config"
 	"log"
 	"net/http"
+	"strconv"
 
 	gw "gateway_grpc/gateway"
 	"github.com/golang/glog"
@@ -13,7 +15,7 @@ import (
 )
 
 var (
-	echoEndpoint = flag.String("echo_endpoint", "localhost:9192", "endpoint of Gateway")
+	echoEndpoint = flag.String("echo_endpoint", "localhost:"+strconv.Itoa(int(config.ServicePort)), "endpoint of Gateway")
 )
 
 func run() error {
@@ -28,8 +30,8 @@ func run() error {
 		return err
 	}
 
-	log.Println("服务开启")
-	return http.ListenAndServe(":9090", mux)
+	log.Println("服务开启，监听端口：", config.GatewayPort)
+	return http.ListenAndServe(":"+strconv.Itoa(int(config.GatewayPort)), mux)
 }
 
 func main() {
