@@ -3,12 +3,17 @@ package gateway;
 
 import "google/api/annotations.proto";
 
-message StringMessage {
-    string value = 1;
+message EchoRequest{
+    string name = 1;
+}
+
+message EchoReply {
+    string message = 1;
+    string time = 2;
 }
 
 service Gateway {
-   rpc Echo(StringMessage) returns (StringMessage) {
+   rpc Echo(EchoRequest) returns (EchoReply) {
        option (google.api.http) = {
            post: "/v1/example/echo"
            body: "*"

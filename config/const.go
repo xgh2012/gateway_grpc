@@ -4,7 +4,11 @@ type (
 	PortType uint
 )
 
+var (
+	RpcStatus = false
+)
+
 const (
-	ServicePort PortType = 1090
+	GrpcPort    PortType = 1090
 	GatewayPort PortType = 2090
 )
