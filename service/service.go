@@ -4,9 +4,9 @@ import (
 	"log"
 	"net"
 
+	pb "gateway_grpc/gateway"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	pb "mrpc/gateway"
 )
 
 const (
@@ -16,7 +16,7 @@ const (
 type server struct{}
 
 func (s *server) Echo(ctx context.Context, in *pb.StringMessage) (*pb.StringMessage, error) {
-	log.Printf("in %+v\n", in)
+	log.Printf("in %+v\n", in.String())
 
 	return &pb.StringMessage{Value: "Hello " + in.Value}, nil
 }

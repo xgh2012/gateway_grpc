@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
+	gw "gateway_grpc/gateway"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	gw "mrpc/gateway"
 )
 
 var (
@@ -29,7 +29,7 @@ func run() error {
 	}
 
 	log.Println("服务开启")
-	return http.ListenAndServe(":1080", mux)
+	return http.ListenAndServe(":9090", mux)
 }
 
 func main() {
