@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	pb "gateway_grpc/gateway"
+	pb "gateway_grpc/protoc"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
