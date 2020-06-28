@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"gateway_grpc/config"
-	pb "gateway_grpc/gateway"
+	pb "gateway_grpc/protoc"
 	"google.golang.org/grpc"
 	"log"
 	"os"
