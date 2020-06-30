@@ -17,8 +17,6 @@ type server struct{}
 func (s *server) Echo(ctx context.Context, in *pb.EchoRequest) (*pb.EchoReply, error) {
 	log.Printf("in %+v\n", in.String())
 
-	log.Printf("ctx %+v\n", ctx)
-
 	return &pb.EchoReply{Message: "Hello " + in.Name, Time: time.Now().String()}, nil
 }
 
