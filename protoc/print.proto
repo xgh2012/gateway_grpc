@@ -3,19 +3,18 @@ package protoc;
 
 import "google/api/annotations.proto";
 
-message EchoRequest{
+message PrintRequest{
     string name = 1;
 }
 
-message EchoReply {
+message PrintReply {
     string message = 1;
-    string time = 2;
 }
 
-service GatewayEcho {
-   rpc Echo(EchoRequest) returns (EchoReply) {
+service GatewayPrint {
+   rpc Print(PrintRequest) returns (PrintReply) {
        option (google.api.http) = {
-           post: "/v1/example/echo"
+           post: "/v1/example/print"
            body: "*"
        };
    }

@@ -9,7 +9,7 @@ import (
 
 func main() {
 	ch := make(chan bool, 1)
-	go rpc_service.Run(ch)
+	rpc_service.Run(ch)
 
 	for {
 		if config.RpcStatus == true && <-ch == true {

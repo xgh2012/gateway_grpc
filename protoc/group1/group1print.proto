@@ -1,0 +1,21 @@
+syntax = "proto3";
+package group1;
+
+import "google/api/annotations.proto";
+
+message PrintGroup1Request{
+    string name = 1;
+}
+
+message PrintGroup1Reply {
+    string message = 1;
+}
+
+service GatewayPrintGroup1 {
+    rpc PrintGroup1(PrintGroup1Request) returns (PrintGroup1Reply) {
+        option (google.api.http) = {
+           post: "/v1/example/group1/print"
+           body: "*"
+       };
+    }
+}

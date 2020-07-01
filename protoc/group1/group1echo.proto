@@ -1,21 +1,21 @@
 syntax = "proto3";
-package protoc;
+package group1;
 
 import "google/api/annotations.proto";
 
-message EchoRequest{
+message EchoGroup1Request{
     string name = 1;
 }
 
-message EchoReply {
+message EchoGroup1Reply {
     string message = 1;
     string time = 2;
 }
 
-service GatewayEcho {
-   rpc Echo(EchoRequest) returns (EchoReply) {
+service GatewayEchoGroup1 {
+   rpc EchoGroup1(EchoGroup1Request) returns (EchoGroup1Reply) {
        option (google.api.http) = {
-           post: "/v1/example/echo"
+           post: "/v1/example/group1/echo"
            body: "*"
        };
    }

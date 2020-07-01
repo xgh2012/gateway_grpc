@@ -20,7 +20,7 @@ func main() {
 	}
 	defer conn.Close()
 
-	cli := pb.NewGatewayClient(conn)
+	cli := pb.NewGatewayEchoClient(conn)
 
 	name := "World XGH"
 	//获取命令行参数

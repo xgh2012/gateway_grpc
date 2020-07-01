@@ -2,23 +2,11 @@ package rpc_service
 
 import (
 	"gateway_grpc/config"
+	"gateway_grpc/rpc_service/route"
 	"log"
 	"net"
 	"strconv"
-	"time"
-
-	pb "gateway_grpc/protoc"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 )
-
-type server struct{}
-
-func (s *server) Echo(ctx context.Context, in *pb.EchoRequest) (*pb.EchoReply, error) {
-	log.Printf("in %+v\n", in.String())
-
-	return &pb.EchoReply{Message: "Hello " + in.Name, Time: time.Now().String()}, nil
-}
 
 func Run(ch chan bool) {
 	lis, err := net.Listen("tcp", ":"+strconv.Itoa(int(config.GrpcPort)))
@@ -29,18 +17,11 @@ func Run(ch chan bool) {
 		return
 	}
 
-	s := grpc.NewServer()
-	pb.RegisterGatewayServer(s, &server{})
+	//设置路由
+	go route.SetRouter(lis)
 
 	log.Println("Grpc 服务已经开启,监听端口：", config.GrpcPort)
 
 	config.RpcStatus = true
 	ch <- true
-
-	err = s.Serve(lis)
-	if err != nil {
-		log.Printf("服务启动 failed: %v", err)
-		ch <- false
-		return
-	}
 }

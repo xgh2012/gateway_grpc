@@ -3,11 +3,11 @@ package gateway_service
 import (
 	"flag"
 	"gateway_grpc/config"
+	"gateway_grpc/gateway_service/client"
 	"log"
 	"net/http"
 	"strconv"
 
-	gw "gateway_grpc/protoc"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"golang.org/x/net/context"
@@ -19,13 +19,15 @@ var (
 )
 
 func run() error {
+	var err error
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := gw.RegisterGatewayHandlerFromEndpoint(ctx, mux, *echoEndpoint, opts)
+
+	err = client.SetClientRouter(ctx, mux, *echoEndpoint, opts)
 	if err != nil {
 		return err
 	}
