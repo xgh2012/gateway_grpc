@@ -5,20 +5,26 @@ import (
 	pg1 "gateway_grpc/protoc/group1"
 	"gateway_grpc/rpc_service/controller"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"log"
 	"net"
 )
 
 //设置GRPC路由
 func SetRouter(lis net.Listener) {
+	c, err := credentials.NewServerTLSFromFile("M:/goProgram/src/gateway_grpc/config/server.crt", "M:/goProgram/src/gateway_grpc/config/server.key")
+	if err != nil {
+		log.Fatalf("credentials.NewServerTLSFromFile err: %v", err)
+	}
+
 	//定义 grpc server
-	server := grpc.NewServer()
+	server := grpc.NewServer(grpc.Creds(c))
 
 	//设置 grpc server 路由
 	Register(server)
 
 	//启动 grpc server 服务
-	err := server.Serve(lis)
+	err = server.Serve(lis)
 	if err != nil {
 		log.Printf("服务启动 PrintServer failed: %v", err)
 		return

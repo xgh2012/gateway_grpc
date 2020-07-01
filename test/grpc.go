@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"gateway_grpc/config"
 	pb "gateway_grpc/protoc"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"log"
 	"os"
 	"strconv"
@@ -12,9 +14,14 @@ import (
 )
 
 func main() {
+	cred, err := credentials.NewClientTLSFromFile("M:/goProgram/src/gateway_grpc/config/server.crt", "rwy")
+	if err != nil {
+		panic(fmt.Errorf("could not load tls cert: %s", err))
+	}
+
 	//连接服务端句柄
 	//WithInsecure()不指定安全选项
-	conn, err := grpc.Dial("localhost:"+strconv.Itoa(int(config.GrpcPort)), grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:"+strconv.Itoa(int(config.GrpcPort)), grpc.WithTransportCredentials(cred))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
