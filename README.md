@@ -21,3 +21,7 @@ go get -u github.com/golang/protobuf/protoc-gen-go
    
    
    表示googleapis 包所在路径 ： -I/m/goProgram/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis
+
+
+4、其他语言调用参数
+    {"header":{"client":"xxx"},"params":[{"key":"xxx1","value":"yyy1"},{"key":"xxx2","value":"yyy2"},{"key":"xxx3","value":"yyy3"}],"mobile":"test"}
